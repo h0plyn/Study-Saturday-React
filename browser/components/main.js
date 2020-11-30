@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { StudentList } from './StudentList';
+import { SingleStudent } from './SingleStudent';
+import { Details } from './Details';
 
 class Main extends React.Component {
   constructor() {
@@ -15,7 +18,6 @@ class Main extends React.Component {
     const res = await axios
       .get('/student')
       .then((res) => this.setState({ students: [...res.data] }));
-    console.log(this.state.students);
   }
 
   render() {
@@ -23,15 +25,16 @@ class Main extends React.Component {
     return (
       <div>
         <h1>Students</h1>
-
         <table>
           <tr>
             <th>Name</th>
+            <th>Tests</th>
           </tr>
-          {students.map((student) => (
-            <tr key={student.id}>{student.fullName}</tr>
-          ))}
+          <tr>
+            <StudentList students={students} />
+          </tr>
         </table>
+        <Details />
       </div>
     );
   }
